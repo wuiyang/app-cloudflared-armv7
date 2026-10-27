@@ -315,6 +315,28 @@ after attempting to connect to find the correct IP.**
 
 Remember to restart Home Assistant after those changes.
 
+### configuration.yaml
+
+On older Home Assistant versions without HTTP server settings, add this to
+`/config/configuration.yaml`:
+
+```yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
+```
+
+If you configure a custom `server_port`, `ssl_certificate`, or `ssl_key` through
+the [HTTP integration][http-integration], keep the entire `http:` block in
+`configuration.yaml`. The app does not follow
+[`!include` files][homeassistant-config-splitting] or
+[package configuration][homeassistant-config-packages] when detecting the port
+and SSL settings.
+
+Restart Home Assistant after changing the configuration.
+For help, see the [Advanced Configuration Tutorial][advancedconfiguration].
+
 ## App Wiki
 
 For more advance [How-Tos][how-tos] and a [Troubleshooting Section][troubleshooting],

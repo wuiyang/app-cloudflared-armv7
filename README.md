@@ -1,11 +1,15 @@
 # Home Assistant App: Cloudflared
 
+This fork retains ARMv7 and i386 support.
+
 [![GitHub Release][releases-shield]][releases]
 ![Project Stage][project-stage-shield]
 [![License][license-shield]](LICENSE.md)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
+![Supports armv7 Architecture][armv7-shield]
+![Supports i386 Architecture][i386-shield]
 
 [![Github Actions][github-actions-shield]][github-actions]
 ![Project Maintenance][maintenance-shield]
@@ -83,12 +87,14 @@ SOFTWARE.
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 [cloudflare-sssa]: https://www.cloudflare.com/terms/
 [contributors]: https://github.com/homeassistant-apps/app-cloudflared/graphs/contributors
 [docs]: cloudflared/DOCS.md
 [github-actions-shield]: https://github.com/homeassistant-apps/app-cloudflared/workflows/CI/badge.svg
 [github-actions]: https://github.com/homeassistant-apps/app-cloudflared/actions
-[repository]: https://github.com/homeassistant-apps/repository
+[repository]: https://github.com/wuiyang/app-cloudflared-armv7
 [issue]: https://github.com/homeassistant-apps/app-cloudflared/issues
 [license-shield]: https://img.shields.io/github/license/homeassistant-apps/app-cloudflared
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
@@ -97,6 +103,6 @@ SOFTWARE.
 [releases]: https://github.com/homeassistant-apps/app-cloudflared/releases
 [tobias]: https://github.com/brenner-tobias
 [my-ha-badge]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
-[my-ha-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fhomeassistant-apps%2Frepository
+[my-ha-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fwuiyang%2Fapp-cloudflared-armv7
 [wiki]: https://github.com/homeassistant-apps/app-cloudflared/wiki/How-tos
 [installations-shield-stable]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fanalytics.home-assistant.io%2Faddons.json&query=%24%5B%229074a9fa_cloudflared%22%5D.total&label=Reported%20Installations&link=https%3A%2F%2Fanalytics.home-assistant.io/add-ons
