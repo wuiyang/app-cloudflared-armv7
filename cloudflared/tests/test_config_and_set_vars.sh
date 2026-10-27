@@ -217,6 +217,29 @@ test_with_unknown_config_version() {
     rm -rf "${tmpdir}"
 }
 
+test_with_additional_hosts_on_legacy_bashio() {
+    TEST_APP_CONFIG='{"additional_hosts":[{"hostname":"service.example.com","service":"http://service:8080"}]}'
+    TEST_CONFIG=(
+        [additional_hosts]="configured"
+    )
+
+    validateConfigAndSetVars
+
+    assert_eq "1" "${#additional_hosts[@]}" "additional host count"
+    assert_eq "service.example.com" "$(jq -r '.hostname' <<<"${additional_hosts[0]}")" "additional hostname"
+    assert_eq "http://service:8080" "$(jq -r '.service' <<<"${additional_hosts[0]}")" "additional service"
+}
+
+test_after_removing_additional_hosts() {
+    TEST_CONFIG=(
+        [catch_all_service]="http://service:8080"
+    )
+
+    validateConfigAndSetVars
+
+    assert_eq "0" "${#additional_hosts[@]}" "removed additional hosts"
+}
+
 main() {
     run_test test_with_storage_http
     run_test test_with_storage_http_ssl
@@ -225,6 +248,8 @@ main() {
     run_test test_with_configuration_yaml_only
     run_test test_with_default_config_only
     run_test test_with_unknown_config_version
+    run_test test_with_additional_hosts_on_legacy_bashio
+    run_test test_after_removing_additional_hosts
 
     if [[ ${TEST_FAILURES} -ne 0 ]]; then
         echo "${TEST_FAILURES} test(s) failed."

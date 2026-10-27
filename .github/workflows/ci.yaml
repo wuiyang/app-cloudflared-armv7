@@ -52,7 +52,7 @@ jobs:
       - name: 🚀 Run App Lint
         uses: homeassistant-apps/action-app-linter@v3.1.2
         with:
-          community: true
+          community: false
           path: "./${{ needs.information.outputs.target }}"
 
   lint-hadolint:
@@ -159,6 +159,10 @@ jobs:
             echo "platform=linux/amd64" >> $GITHUB_OUTPUT
           elif [[ "${{ matrix.architecture }}" = "aarch64" ]]; then
             echo "platform=linux/arm64/v8" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.architecture }}" = "i386" ]]; then
+            echo "platform=linux/i386" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.architecture }}" = "armv7" ]]; then
+            echo "platform=linux/arm/v7" >> $GITHUB_OUTPUT
           else
             echo "::error ::Could not determine platform for architecture ${{ matrix.architecture }}"
             exit 1

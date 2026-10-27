@@ -40,8 +40,8 @@ bashio::config() {
     printf '%s' "${TEST_CONFIG[$key]:-}"
 }
 
-bashio::app.config() {
-    printf '%s' "${TEST_APP_CONFIG:-{}}"
+bashio::addon.config() {
+    printf '%s' "${TEST_APP_CONFIG:-"{}"}"
 }
 
 bashio::var.is_empty() {
@@ -69,7 +69,5 @@ bashio::fs.file_exists() {
 }
 
 bashio::jq() {
-    if [[ $# -gt 0 ]]; then
-        printf '%s' "${1}"
-    fi
+    jq --compact-output --raw-output "$2" <<<"$1"
 }
