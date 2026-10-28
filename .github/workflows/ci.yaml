@@ -24,7 +24,7 @@ jobs:
       build: ${{ steps.information.outputs.build }}
       description: ${{ steps.information.outputs.description }}
       name: ${{ steps.information.outputs.name }}
-      slug: ${{ steps.override.outputs.slug }}
+      slug: ${{ steps.information.outputs.slug }}
       target: ${{ steps.information.outputs.target }}
     steps:
       - name: ⤵️ Check out code from GitHub
@@ -32,14 +32,6 @@ jobs:
       - name: 🚀 Run app information action
         id: information
         uses: homeassistant-apps/action-app-information@v2
-      - name: 🚀 Process possible slug override
-        id: override
-        run: |
-          slug="${{ steps.information.outputs.slug }}"
-          if [[ ! -z "${{ inputs.slug }}" ]]; then
-            slug="${{ inputs.slug }}"
-          fi
-          echo "slug=$slug" >> $GITHUB_OUTPUT
 
   lint-app:
     name: Lint App
@@ -77,7 +69,7 @@ jobs:
       - name: 🚀 Run JQ
         run: |
           shopt -s globstar
-          cat **/*.json | jq '.'
+          cat -- **/*.json | jq '.'
 
   lint-markdown:
     name: MarkdownLint
@@ -154,15 +146,15 @@ jobs:
       - name: ℹ️ Compose build flags
         id: flags
         run: |
-          echo "date=$(date +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_OUTPUT
+          echo "date=$(date +"%Y-%m-%dT%H:%M:%SZ")" >> "$GITHUB_OUTPUT"
           if [[ "${{ matrix.architecture}}" = "amd64" ]]; then
-            echo "platform=linux/amd64" >> $GITHUB_OUTPUT
+            echo "platform=linux/amd64" >> "$GITHUB_OUTPUT"
           elif [[ "${{ matrix.architecture }}" = "aarch64" ]]; then
-            echo "platform=linux/arm64/v8" >> $GITHUB_OUTPUT
+            echo "platform=linux/arm64/v8" >> "$GITHUB_OUTPUT"
           elif [[ "${{ matrix.architecture }}" = "i386" ]]; then
-            echo "platform=linux/i386" >> $GITHUB_OUTPUT
+            echo "platform=linux/i386" >> "$GITHUB_OUTPUT"
           elif [[ "${{ matrix.architecture }}" = "armv7" ]]; then
-            echo "platform=linux/arm/v7" >> $GITHUB_OUTPUT
+            echo "platform=linux/arm/v7" >> "$GITHUB_OUTPUT"
           else
             echo "::error ::Could not determine platform for architecture ${{ matrix.architecture }}"
             exit 1
